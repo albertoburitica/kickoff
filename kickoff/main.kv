@@ -1,0 +1,50 @@
+# main.kv, GUI.
+<MyButton@Button>:
+    color: [1, 1, 1, 1]
+    background_color: [0, 1, 0, .6]
+    border: [20, 30, 20, 30]
+    font_size: 18
+
+<MainWindow>
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 1, 0, .2
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        # pos_hint: {'x': .1} # Movment axis x
+        # size: root.height, root.width
+        # spacing: 10
+        # size_hint: None, None
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: None, None
+            size: root.width, 50
+            orientation: 'horizontal'
+            padding: 4, 4, 4, 1
+            MyButton:
+                text: 'Configure'
+            MyButton:
+                text: 'Validate'
+                on_press: root.validate()
+            MyButton:
+                text: 'Exit'
+                on_press: root.close()
+        TextInput:
+            text: root.kstext
+            multiline: True
+            readonly: True
+        BoxLayout:
+            size_hint: None, None
+            size: root.width, 30
+            padding: 4, 4, 10, 4
+            orientation: 'horizontal'
+            Label:
+                text: root.status
+                size_hint_x: .1
+                # height: '48dp'
+            ProgressBar:
+                id: pb
+                size_hint_x: .1
+                value: (root.progress) % 100.
