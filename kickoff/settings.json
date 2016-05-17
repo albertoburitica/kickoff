@@ -1,0 +1,21 @@
+[
+ {
+   "type": "bool",
+   "title": "Root account",
+   "desc": "Enble the root account",
+   "section": "User settings",
+   "key": "root"
+ },
+ {
+   "type": "title",
+   "title": "Initial user"
+ },
+ {
+   "type": "string",
+   "title": "User name",
+   "desc": "Create an initial user",
+   "section": "User settings",
+   "key": "username"
+ }
+]
+
