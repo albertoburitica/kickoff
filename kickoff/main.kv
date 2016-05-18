@@ -23,8 +23,7 @@
             orientation: 'horizontal'
             padding: 4, 4, 4, 1
             MyButton:
-                text: 'Configure'
-                on_press: app.open_settings()
+                text: 'Configure'                
             MyButton:
                 text: 'Validate'
                 on_press: root.validate()
@@ -47,6 +46,7 @@
             ProgressBar:
                 id: pb
                 size_hint_x: .1
+                value: root.progress
 
 
 

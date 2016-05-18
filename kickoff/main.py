@@ -9,8 +9,6 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
-from kivy.uix.settings import SettingsWithTabbedPanel
-from kivy.uix.settings import Settings
 from kivy.clock import Clock
 from validation import Validate
 
@@ -56,37 +54,13 @@ mkdir /etc/post
             self.status = check
 
 
-
-
-
 class MainWindowApp(App):
     """Class MainWindowApp."""
 
-    use_kivy_settings = True    
-
     def build(self):
         """Build the main window and set the title."""
-        self.settings_cls = KickoffSettings
         self.title = "Kickoff | Kickstart file configurator"
         return MainWindow()
-
-    def build_config(self, config):
-        """Initial settings."""
-        config.setdefaults('User settings', 
-                           {
-                            'root': 1,
-                            'username': 'aburitica'
-                           })
-
-    def build_settings(self, settings):
-        """Using .json file and load."""
-        with open("settings.json") as s_json:
-            settings.add_json_panel('User settings', self.config,
-                                    data=s_json.read())
-
-class KickoffSettings(Settings):
-    pass
-
 
 if __name__ == "__main__":
     MainWindowApp().run()
