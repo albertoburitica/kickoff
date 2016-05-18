@@ -6,7 +6,7 @@ This file contain the code of the main windows.
 
 
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.clock import Clock
@@ -16,7 +16,7 @@ from validation import Validate
 Builder.load_file('main.kv')
 
 
-class MainWindow(BoxLayout):
+class MainWindow(Screen):
     """Class MainWindow."""
 
     status = StringProperty("")
@@ -54,13 +54,26 @@ mkdir /etc/post
             self.status = check
 
 
+class Settings(Screen):
+    """Settings screen."""
+
+    pass
+
+# Screen manager.
+sm = ScreenManager(transition=WipeTransition())
+sm.add_widget(MainWindow(name='main'))
+sm.add_widget(Settings(name='settings'))
+
+
 class MainWindowApp(App):
     """Class MainWindowApp."""
 
     def build(self):
         """Build the main window and set the title."""
-        self.title = "Kickoff | Kickstart file configurator"
-        return MainWindow()
+        # self.title = "Kickoff | Kickstart file configurator"
+        # return MainWindow()
+        return sm
 
 if __name__ == "__main__":
     MainWindowApp().run()
+B
