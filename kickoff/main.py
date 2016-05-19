@@ -14,6 +14,7 @@ from validation import Validate
 
 
 Builder.load_file('main.kv')
+Builder.load_file('settings.kv')
 
 
 class MainWindow(Screen):
@@ -61,8 +62,8 @@ class Settings(Screen):
 
 # Screen manager.
 sm = ScreenManager(transition=WipeTransition())
-sm.add_widget(MainWindow(name='main'))
 sm.add_widget(Settings(name='settings'))
+sm.add_widget(MainWindow(name='main'))
 
 
 class MainWindowApp(App):
@@ -70,10 +71,9 @@ class MainWindowApp(App):
 
     def build(self):
         """Build the main window and set the title."""
-        # self.title = "Kickoff | Kickstart file configurator"
+        self.title = "Kickoff | Kickstart file configurator"
         # return MainWindow()
         return sm
 
 if __name__ == "__main__":
     MainWindowApp().run()
-B

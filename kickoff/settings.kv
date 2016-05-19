@@ -1,0 +1,235 @@
+#:import Factory kivy.factory.Factory
+<MySettingButton@Button>:
+    size_hint: None, None
+    size: '150dp', '48dp'
+    color: [1, 1, 1, 1]    
+    background_color: [0, 1, 0, .6]   
+    font_size: 16  
+<MyScreen@Screen>:
+    canvas.before:
+        Color:
+            rgba: 0, 1, 0, .2
+        Rectangle:            
+            size: self.size
+<MySeparator@BoxLayout>
+    orientation: 'horizontal'  
+    size_hint_y: None
+    height: '2dp'     
+    canvas.before:
+        Color:
+            rgba: 0, 1, 0, .1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+<MyAdvice@BoxLayout>:
+    orientation: 'horizontal'  
+    size_hint_y: None
+    height: '29dp'      
+    canvas.before:
+        Color:
+            rgba: 0, 1, 0, .1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    adviceIn: 'Title' 
+    margin: 70, 5, 60, 8
+    padding: 70, 5, 60, 8
+    Label:        
+        text_size: self.size
+        haling: 'left'
+        valing: 'middle'
+        font_size: 12
+        text: root.adviceIn    
+<MyTitle@BoxLayout>:
+    orientation: 'horizontal'  
+    size_hint_y: None
+    height: '46dp'      
+    canvas.before:
+        Color:
+            rgba: 0, 1, 0, .1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    titleIn: 'Title'    
+    padding: 70, 5, 60, 8
+    Label:        
+        text_size: self.size
+        haling: 'left'
+        valing: 'middle'
+        font_size: 21
+        text: root.titleIn
+<MySubtitle@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: '52dp'
+    subtitleIn: 'Subtitle'
+    padding: 70, 20, 60, 10
+    Label:
+        text: root.subtitleIn
+        text_size: self.size
+        halign: 'left'
+        valing: 'middle'
+        font_size: 18    
+<LblText@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: '31dp'
+    lblTextIn: 'default'
+    lblText: aText
+    padding: 70, 0, 60, 3    
+    Label:
+        text_size: self.size
+        halign: 'left'
+        valign: 'middle'
+        text: root.lblTextIn
+    TextInput:
+        id: aText
+        height: '49db'
+<LblPass@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: '31dp'
+    lblPassIn: 'default'
+    passText: aPass
+    padding: 70, 0, 60, 3
+    Label:
+        text_size: self.size
+        halign: 'left'
+        valign: 'middle'
+        text: root.lblPassIn
+    TextInput:
+        id: aPass       
+        height: '32dp'         
+        multiline: False
+        password: True    
+<LblSwt@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: '41dp'
+    lblSwtIn: 'default'
+    padding: 70, 0, 60, 20
+    Label:
+        text_size: self.size
+        halign: 'left'
+        valing: 'middle'
+        text: root.lblSwtIn
+    Switch:   
+<MyRootForm@BoxLayout>:
+    orientation: 'vertical'
+    
+    MyTitle:
+        titleIn: 'User settings'
+
+    MySubtitle:
+        subtitleIn: 'Root user'    
+
+    LblSwt:
+        id: st0
+        lblSwtIn: 'Enable root acount:'  
+
+    LblPass:
+        id: lp0
+        lblPassIn: 'Pasword root: *'
+        disabled: True
+
+    LblPass:
+        id: lp1
+        lblPassIn: 'Confirm password root: *'
+        disabled: True 
+
+    MySubtitle:
+        subtitleIn: 'Initial user' 
+
+    LblText: 
+        id: lt0
+        lblTextIn: 'Username: *'
+    LblPass:
+        id: lp2
+        lblPassIn: 'Password: *'
+    LblText:
+        id: lt1
+        lblTextIn: 'Home directory:'
+    LblText:
+        id: lt2
+        lblTextIn: 'Shell:'
+    MyAdvice
+        adviceIn: '* Required fields.'
+    
+# settings GUI.
+<Settings>:    
+    BoxLayout:        
+        orientation: 'horizontal'
+        canvas.before:
+            Color:
+                rgb: 0, 0, 0
+            Rectangle:
+                size: self.size
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None
+            size: '150dp', root.height
+            # padding: 0, 0, 1, 310
+            MySettingButton:            
+                text: 'Localization'
+                on_release:
+                    screen.transition = Factory.get('FadeTransition')()
+                    # screen.transition.direction = 'up'  
+                    screen.current = 'localization'                  
+            MySettingButton:            
+                text: 'User settings'
+                on_release: screen.current = 'user'
+            MySettingButton:            
+                text: 'Installation source'
+                on_release: screen.current = 'source'
+            MySettingButton:            
+                text: 'Partitions'
+                on_release: screen.current = 'partition'
+            MySettingButton:            
+                text: 'Network'
+                on_release: screen.current = 'network'
+            MySettingButton:            
+                text: 'Others'
+                on_release: screen.current = 'others'
+            MySettingButton:            
+                text: 'Return'
+                on_release: root.manager.current = 'main'
+
+            # Empty widget in order to put my buttons on top.
+            Widget:
+        ScreenManager:
+            id: screen
+            MyScreen:
+                name: 'localization'  
+                Label:
+                    text: 'localization' 
+            MyScreen:
+                name: 'user'               
+                BoxLayout: 
+                    orientation: 'vertical'               
+                    MyRootForm
+                    Widget:
+                        size_hint_y: None
+                        height: '180dp'
+
+            MyScreen:
+                name: 'source'
+             
+                Label:
+                    text: 'source'
+            MyScreen:
+                name: 'partition'
+               
+                Label:
+                    text: 'partition'
+            MyScreen:
+                name: 'network'
+                
+                Label:
+                    text: 'network'
+            MyScreen:
+                name: 'others'
+            
+                Label:
+                    text: 'others'
+
+                

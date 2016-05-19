@@ -3,12 +3,7 @@
     color: [1, 1, 1, 1]
     background_color: [0, 1, 0, .6]
     # border: [20, 30, 20, 30]
-    font_size: 18    
-<MySettingButton@Button>:
-    size_hint: None, None
-    size: '150dp', '48dp'
-    color: [1, 1, 1, 1]
-    background_color: [0, 1, 0, .6]     
+    font_size: 16    
 <MainWindow>:
     BoxLayout:
         canvas.before:
@@ -29,7 +24,8 @@
             padding: 4, 4, 4, 1
             MyButton:
                 text: 'Configure'
-                on_press: root.manager.current = 'settings'
+                on_press:                
+                    root.manager.current = 'settings'
             MyButton:
                 text: 'Validate'
                 on_press: root.validate()
@@ -53,94 +49,3 @@
                 id: pb
                 size_hint_x: .1
                 value: root.progress
-# settings GUI.
-<Settings>:    
-    BoxLayout:        
-        orientation: 'horizontal'
-        canvas.before:
-            Color:
-                rgb: 0, 0, 0
-            Rectangle:
-                size: self.size
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: None, None
-            size: '150dp', root.height
-            # padding: 0, 0, 1, 310
-            MySettingButton:            
-                text: 'Localization'
-                on_release: sm.current = 'localization'
-            MySettingButton:            
-                text: 'User settings'
-                on_release: sm.current = 'user'
-            MySettingButton:            
-                text: 'Installation source'
-                on_release: sm.current = 'source'
-            MySettingButton:            
-                text: 'Partitions'
-                on_release: sm.current = 'partition'
-            MySettingButton:            
-                text: 'Network'
-                on_release: sm.current = 'network'
-            MySettingButton:            
-                text: 'Others'
-                on_release: sm.current = 'others'
-            MySettingButton:            
-                text: 'Return'
-                on_release: root.manager.current = 'main'
-            # Empty widget in order to put my buttons on top.
-            Widget:
-        ScreenManager:
-            id: sm                  
-            Screen:
-                name: 'localization'
-                canvas.before:
-                    Color:
-                        rgba: 0, 1, 0, .2
-                    Rectangle:
-                        size: self.size
-                Label:
-                    text: 'localization'             
-                
-            Screen:
-                name: 'user'
-                canvas.before:
-                    Color:
-                        rgba: 0, 1, 0, .2
-                    Rectangle:
-                        size: self.size
-                Label:
-                    text: 'user'       
-                
-            Screen:
-                name: 'source'
-                canvas.before:
-                    Color:
-                        rgb: 0, 0, 0
-                    Rectangle:
-                        size: self.size
-                Label:
-                    text: 'source'
-            Screen:
-                name: 'partition'
-                canvas.before:
-                    Color:
-                        rgb: 0, 0, 0
-                    Rectangle:
-                        size: self.size
-                Label:
-                    text: 'partition'
-            Screen:
-                name: 'network'
-                Label:
-                    text: 'network'
-            Screen:
-                name: 'others'
-                canvas.before:
-                    Color:
-                        rgb: .2, .8, .2
-                    Rectangle:
-                        size: self.size
-                Label:
-                    text: 'others'
-                
