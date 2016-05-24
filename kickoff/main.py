@@ -10,11 +10,11 @@ from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.clock import Clock
+from settings import Settings
 from validation import Validate
 
 
 Builder.load_file('main.kv')
-Builder.load_file('settings.kv')
 
 
 class MainWindow(Screen):
@@ -54,16 +54,10 @@ mkdir /etc/post
             self.progress = -1
             self.status = check
 
-
-class Settings(Screen):
-    """Settings screen."""
-
-    pass
-
 # Screen manager.
-sm = ScreenManager(transition=WipeTransition())
-sm.add_widget(Settings(name='settings'))
-sm.add_widget(MainWindow(name='main'))
+screen = ScreenManager(transition=WipeTransition())
+screen.add_widget(Settings(name='settings'))
+screen.add_widget(MainWindow(name='main'))
 
 
 class MainWindowApp(App):
@@ -73,7 +67,7 @@ class MainWindowApp(App):
         """Build the main window and set the title."""
         self.title = "Kickoff | Kickstart file configurator"
         # return MainWindow()
-        return sm
+        return screen
 
 if __name__ == "__main__":
     MainWindowApp().run()

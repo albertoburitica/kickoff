@@ -1,7 +1,24 @@
 #:import Factory kivy.factory.Factory
+<InfoPopup>
+    canvas.before:
+        Color:
+            rgba:  0, 1, 0, .2
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    title: 'Information'
+    size_hint: 0.4, 0.4 
+    id: info_popup
+    BoxLayout
+        orientation: 'vertical'        
+        Label    
+            text: root.info
+        Button:
+            text: 'Ok'
+            size_hint: 1.0, 0.2
+            on_press: info_popup.on_press_dismiss()
 <MySettingButton@Button>:
-    size_hint: None, None
-    size: '150dp', '48dp'
+    size_hint: [1, .1]  
     color: [1, 1, 1, 1]    
     background_color: [0, 1, 0, .6]   
     font_size: 16  
@@ -11,149 +28,70 @@
             rgba: 0, 1, 0, .2
         Rectangle:            
             size: self.size
-<MySeparator@BoxLayout>
-    orientation: 'horizontal'  
+<MyBoxLayout@BoxLayout>:
+    orientation: 'horizontal'
+    # size_hint: [1, .2]
     size_hint_y: None
-    height: '2dp'     
-    canvas.before:
-        Color:
-            rgba: 0, 1, 0, .1
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    height: '39dp'
+    padding: 70, 8, 60, 8
 <MyAdvice@BoxLayout>:
     orientation: 'horizontal'  
     size_hint_y: None
-    height: '29dp'      
-    canvas.before:
-        Color:
-            rgba: 0, 1, 0, .1
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    adviceIn: 'Title' 
-    margin: 70, 5, 60, 8
-    padding: 70, 5, 60, 8
+    height: '29dp'       
+    advice: 'An advice'
+    padding: 70, 0, 60, 0
     Label:        
         text_size: self.size
         haling: 'left'
         valing: 'middle'
         font_size: 12
-        text: root.adviceIn    
+        text: root.advice   
 <MyTitle@BoxLayout>:
     orientation: 'horizontal'  
-    size_hint_y: None
-    height: '46dp'      
+    size_hint: [1, .4]   
+    # height: '26dp'      
     canvas.before:
         Color:
             rgba: 0, 1, 0, .1
         Rectangle:
             pos: self.pos
             size: self.size
-    titleIn: 'Title'    
-    padding: 70, 5, 60, 8
+    title: 'Title'    
+    padding: 70, 8, 60, 8
     Label:        
         text_size: self.size
         haling: 'left'
         valing: 'middle'
         font_size: 21
-        text: root.titleIn
+        text: root.title
 <MySubtitle@BoxLayout>:
     orientation: 'horizontal'
+    # size_hint: [1, .2]  
     size_hint_y: None
     height: '52dp'
-    subtitleIn: 'Subtitle'
-    padding: 70, 20, 60, 10
-    Label:
-        text: root.subtitleIn
+    subtitle: 'Subtitle'
+    padding: 70, 0, 60, 2
+    Label:        
         text_size: self.size
         halign: 'left'
         valing: 'middle'
-        font_size: 18    
-<LblText@BoxLayout>:
-    orientation: 'horizontal'
+        font_size: 18  
+        text: root.subtitle
+<MyLabel@Label>:
+    text_size: self.size
+    valign: 'middle'
+    halign: 'left'
+<MyTextInput@TextInput>
     size_hint_y: None
-    height: '31dp'
-    lblTextIn: 'default'
-    lblText: aText
-    padding: 70, 0, 60, 3    
-    Label:
-        text_size: self.size
-        halign: 'left'
-        valign: 'middle'
-        text: root.lblTextIn
-    TextInput:
-        id: aText
-        height: '49db'
-<LblPass@BoxLayout>:
-    orientation: 'horizontal'
+    height: '29dp'
+    pos_hint: {'top': 0.9}    
+    multiline: False
+<MyPassword@TextInput>
+    password: True
     size_hint_y: None
-    height: '31dp'
-    lblPassIn: 'default'
-    passText: aPass
-    padding: 70, 0, 60, 3
-    Label:
-        text_size: self.size
-        halign: 'left'
-        valign: 'middle'
-        text: root.lblPassIn
-    TextInput:
-        id: aPass       
-        height: '32dp'         
-        multiline: False
-        password: True    
-<LblSwt@BoxLayout>:
-    orientation: 'horizontal'
-    size_hint_y: None
-    height: '41dp'
-    lblSwtIn: 'default'
-    padding: 70, 0, 60, 20
-    Label:
-        text_size: self.size
-        halign: 'left'
-        valing: 'middle'
-        text: root.lblSwtIn
-    Switch:   
-<MyRootForm@BoxLayout>:
-    orientation: 'vertical'
-    
-    MyTitle:
-        titleIn: 'User settings'
-
-    MySubtitle:
-        subtitleIn: 'Root user'    
-
-    LblSwt:
-        id: st0
-        lblSwtIn: 'Enable root acount:'  
-
-    LblPass:
-        id: lp0
-        lblPassIn: 'Pasword root: *'
-        disabled: True
-
-    LblPass:
-        id: lp1
-        lblPassIn: 'Confirm password root: *'
-        disabled: True 
-
-    MySubtitle:
-        subtitleIn: 'Initial user' 
-
-    LblText: 
-        id: lt0
-        lblTextIn: 'Username: *'
-    LblPass:
-        id: lp2
-        lblPassIn: 'Password: *'
-    LblText:
-        id: lt1
-        lblTextIn: 'Home directory:'
-    LblText:
-        id: lt2
-        lblTextIn: 'Shell:'
-    MyAdvice
-        adviceIn: '* Required fields.'
+    height: '29dp'
+    pos_hint: {'top': 0.9}    
+    multiline: False
     
 # settings GUI.
 <Settings>:    
@@ -166,15 +104,15 @@
                 size: self.size
         BoxLayout:
             orientation: 'vertical'
-            size_hint: None, None
-            size: '150dp', root.height
+            size_hint: [.3, 1]
+            # size: '150dp', root.height
             # padding: 0, 0, 1, 310
             MySettingButton:            
                 text: 'Localization'
                 on_release:
                     screen.transition = Factory.get('FadeTransition')()
                     # screen.transition.direction = 'up'  
-                    screen.current = 'localization'                  
+                    screen.current = 'localization'                                      
             MySettingButton:            
                 text: 'User settings'
                 on_release: screen.current = 'user'
@@ -191,26 +129,94 @@
                 text: 'Others'
                 on_release: screen.current = 'others'
             MySettingButton:            
+                text: 'Save'
+                on_release: 
+                    root.validate_forms()
+            MySettingButton:            
                 text: 'Return'
-                on_release: root.manager.current = 'main'
-
-            # Empty widget in order to put my buttons on top.
-            Widget:
+                on_release: 
+                    root.manager.current = 'main'                    
+        # Creating every screen
         ScreenManager:
             id: screen
+            
+            MyScreen:
+                name: 'user' 
+
+                BoxLayout: 
+                    orientation: 'vertical' 
+                    size_hint: [1, 1]
+                   
+                    MyTitle:  
+                        title: 'User settings' 
+                    MySubtitle:
+                        subtitle: 'Root settings'
+
+                    MyBoxLayout:                        
+                        MyLabel:
+                            text: 'Enable the root acount:'
+                        Switch: 
+                            id: sr1
+                            on_active: root.active_root(self, self.active)
+                    
+                    MyBoxLayout:                        
+                        MyLabel:
+                            text: 'Root password: *' 
+                        MyPassword:                            
+                            id: pr1
+                            disabled: root.root_pass_state
+
+                    MyBoxLayout:          
+                        MyLabel:
+                            text: 'Confirm root password: *' 
+                        MyPassword:
+                            id: pr2
+                            disabled: root.root_pass_conf_state
+                            on_focus: root.on_focus(self, self.focus)
+
+                    MySubtitle:
+                        subtitle: 'Initial user'
+
+                    MyBoxLayout:                        
+                        MyLabel:
+                            text: 'Username: *' 
+                        MyTextInput:
+                            id: us1
+                           
+                    MyBoxLayout:          
+                        MyLabel:
+                            text: 'Password: *' 
+                        MyPassword:
+                            id: us2
+
+                    MyBoxLayout:          
+                        MyLabel:
+                            text: 'Confirm password: *' 
+                        MyPassword:
+                            id: us3
+
+                    MyBoxLayout:                        
+                        MyLabel:
+                            text: 'Home directory:' 
+                        MyTextInput:
+                            id: us4
+
+                    MyBoxLayout:                        
+                        MyLabel:
+                            text: 'Shell:' 
+                        MyTextInput:
+                            id: us5
+                            
+                    MyAdvice
+                        advice: '* Required fields.'
+                    Widget:
+                    
+                  
             MyScreen:
                 name: 'localization'  
                 Label:
                     text: 'localization' 
-            MyScreen:
-                name: 'user'               
-                BoxLayout: 
-                    orientation: 'vertical'               
-                    MyRootForm
-                    Widget:
-                        size_hint_y: None
-                        height: '180dp'
-
+                     
             MyScreen:
                 name: 'source'
              
