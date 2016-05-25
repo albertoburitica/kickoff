@@ -9,6 +9,7 @@ from kivy.lang import Builder
 from kivy.properties import BooleanProperty, StringProperty
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen
+from section import Section
 from user import User
 
 
@@ -47,7 +48,7 @@ class Settings(Screen):
             self.ids.pr1.text = ''
             self.ids.pr2.text = ''
 
-    def on_focus(self, instance, value):
+    def check_root_pass(self, instance, value):
         """Check root password."""
         if not value:
             if self.ids.pr1.text != self.ids.pr2.text:
@@ -57,6 +58,7 @@ class Settings(Screen):
 
     def validate_forms(self):
         """Validate form."""
+        root_pass = self.ids.pr2.text
         username = self.ids.us1.text
         user_pass = self.ids.us3.text
         home = self.ids.us4.text
@@ -68,4 +70,6 @@ class Settings(Screen):
         # popup.set_info('Root passwords do not match')
         # popup.open()
         user = User()
-        user.save_user(username, user_pass, home, shell)
+        user.save_user(root_pass, username, user_pass, home, shell)
+        section = Section()
+        section.create_file()

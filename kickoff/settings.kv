@@ -1,5 +1,5 @@
 #:import Factory kivy.factory.Factory
-<InfoPopup>
+<InfoPopup>:
     canvas.before:
         Color:
             rgba:  0, 1, 0, .2
@@ -131,11 +131,12 @@
             MySettingButton:            
                 text: 'Save'
                 on_release: 
-                    root.validate_forms()
+                    root.validate_forms()                    
             MySettingButton:            
                 text: 'Return'
                 on_release: 
-                    root.manager.current = 'main'                    
+                    root.manager.current = 'main' 
+                    # root.load_file()                   
         # Creating every screen
         ScreenManager:
             id: screen
@@ -172,7 +173,7 @@
                         MyPassword:
                             id: pr2
                             disabled: root.root_pass_conf_state
-                            on_focus: root.on_focus(self, self.focus)
+                            on_focus: root.check_root_pass(self, self.focus)
 
                     MySubtitle:
                         subtitle: 'Initial user'

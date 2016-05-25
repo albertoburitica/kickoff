@@ -10,6 +10,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.clock import Clock
+from section import Section
 from settings import Settings
 from validation import Validate
 
@@ -22,22 +23,17 @@ class MainWindow(Screen):
 
     status = StringProperty("")
     progress = NumericProperty(0)
-    kstext = """#Do not configure the X Window System
-skipx
-%pre
-mkdir /etc/pre
-%end
-%post
-mkdir /etc/post
-%end"""
+    kstext = StringProperty("")
+
+    section = Section()
+
+    def load_file(self):
+        """Loading the kickstart file into textbox."""
+        self.kstext = self.section.load_files()
 
     def close(self):
         """Close function. Function which the button close call."""
         exit(0)
-
-    def file_content(self):
-        """File content function."""
-        pass
 
     def validate(self):
         """Calling the function update_progressbar."""
@@ -56,8 +52,8 @@ mkdir /etc/post
 
 # Screen manager.
 screen = ScreenManager(transition=WipeTransition())
-screen.add_widget(Settings(name='settings'))
 screen.add_widget(MainWindow(name='main'))
+screen.add_widget(Settings(name='settings'))
 
 
 class MainWindowApp(App):

@@ -5,6 +5,7 @@
     # border: [20, 30, 20, 30]
     font_size: 16  
 <MainWindow>:
+    on_parent: root.load_file()
     BoxLayout:
         canvas.before:
             Color:
@@ -33,6 +34,7 @@
                 text: 'Exit'
                 on_press: root.close()
         TextInput:
+            id: ks_txt
             text: root.kstext
             multiline: True
             readonly: True
