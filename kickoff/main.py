@@ -52,8 +52,8 @@ class MainWindow(Screen):
 
 # Screen manager.
 screen = ScreenManager(transition=WipeTransition())
-screen.add_widget(MainWindow(name='main'))
 screen.add_widget(Settings(name='settings'))
+screen.add_widget(MainWindow(name='main'))
 
 
 class MainWindowApp(App):

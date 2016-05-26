@@ -15,15 +15,17 @@ class User(Section):
         """Save user section."""
         self.ks = []
 
-        # Encrypting the password.
+        print()
+
         if root_pass:
+            # Encrypting the password.
             root_pass = self.encrypt_passwd(root_pass)
             root = 'rootpw --iscrypted ' + root_pass
             self.ks.append(root)
             self.save_section('root', self.ks)
             self.ks = []
-        else:
-            self.ks = []
+        elif not root_pass and self.ksfile.get('root') is not None:
+            del self.ksfile['root']
 
         # Encrypting the password.
         user_pass = self.encrypt_passwd(user_pass)
@@ -36,6 +38,7 @@ class User(Section):
             user += ' --shell=' + shell
         self.ks.append(user)
         self.save_section('user', self.ks)
+        self.ks = []
 
     def encrypt_passwd(self, passwd):
         """Encrypt password using openssl."""

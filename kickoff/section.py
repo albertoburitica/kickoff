@@ -30,7 +30,6 @@ class Section:
         kickstart.close()
         # Append lines to the file.
         kickstart = open('/tmp/ks.cfg', 'a')
-        self.ksfile = {}
         for k, v in self.ksfile.items():
             kickstart.write(v)
         kickstart.close()

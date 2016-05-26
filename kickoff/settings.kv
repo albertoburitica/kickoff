@@ -48,8 +48,8 @@
         text: root.advice   
 <MyTitle@BoxLayout>:
     orientation: 'horizontal'  
-    size_hint: [1, .4]   
-    # height: '26dp'      
+    size_hint_y: None
+    height: '52dp'     
     canvas.before:
         Color:
             rgba: 0, 1, 0, .1
@@ -126,8 +126,8 @@
                 text: 'Network'
                 on_release: screen.current = 'network'
             MySettingButton:            
-                text: 'Others'
-                on_release: screen.current = 'others'
+                text: 'Scripts'
+                on_release: screen.current = 'scripts'
             MySettingButton:            
                 text: 'Save'
                 on_release: 
@@ -147,7 +147,7 @@
                 BoxLayout: 
                     orientation: 'vertical' 
                     size_hint: [1, 1]
-                   
+                    
                     MyTitle:  
                         title: 'User settings' 
                     MySubtitle:
@@ -219,10 +219,138 @@
                     text: 'localization' 
                      
             MyScreen:
-                name: 'source'
-             
-                Label:
-                    text: 'source'
+                name: 'source'                
+                BoxLayout:
+                    orientation: 'vertical'                
+                    size_hint: [1, 1]
+
+                    MyTitle
+                        title: 'Installation source'
+                     
+
+
+                    BoxLayout:
+                        orientation: 'horizontal'                       
+                        padding: 20, 0, 20, 0  
+                        size_hint: [1, .3]                      
+                        ToggleButton:
+                            size_hint_y: None
+                            height: '48dp'
+                            text: 'CD-ROM'                           
+                            group: 'si'
+                            background_color: [0, 1, 0, .6]  
+                            on_release: source.current = 'cdrom'
+                        ToggleButton:
+                            size_hint_y: None
+                            height: '48dp'
+                            text: 'Hard drive'
+                            group: 'si'
+                            background_color: [0, 1, 0, .6] 
+                            on_release: source.current = 'harddrive' 
+                        ToggleButton:
+                            size_hint_y: None
+                            height: '48dp'
+                            text: 'NFS'
+                            group: 'si'
+                            background_color: [0, 1, 0, .6]  
+                            on_release: source.current = 'nfs'
+                        ToggleButton:
+                            size_hint_y: None
+                            height: '48dp'
+                            text: 'HTTP'
+                            group: 'si'
+                            background_color: [0, 1, 0, .6] 
+                            on_release: source.current = 'http' 
+                        ToggleButton:
+                            size_hint_y: None
+                            height: '48dp'
+                            text: 'FTP'
+                            group: 'si'
+                            background_color: [0, 1, 0, .6]
+                            on_release: source.current = 'ftp'  
+                                                
+                        
+                    BoxLayout:
+                        size_hint: [1, .6]
+                        ScreenManager:
+                            id: source   
+                            Screen:
+                                name: 'cdrom'
+                                MyBoxLayout:
+                                    MyLabel:
+                                        text: 'Install from the first CD-ROM drive on the system.'
+
+                            Screen:
+                                name: 'harddrive'
+                                BoxLayout: 
+                                    orientation: 'vertical' 
+                                    size_hint: [1, 1]    
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'Partition to install from: ' 
+                                        MyTextInput:                            
+                                            
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'Directory of the installation tree' 
+                                        MyTextInput:                            
+                                         
+                            Screen:
+                                name: 'nfs'
+                                BoxLayout: 
+                                    orientation: 'vertical' 
+                                    size_hint: [1, 1]    
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'Server from which to install: ' 
+                                        MyTextInput:                            
+                                            
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'Directory of the installation:' 
+                                        MyTextInput:
+                            Screen:
+                                name: 'http'
+                                BoxLayout: 
+                                    orientation: 'vertical' 
+                                    size_hint: [1, 1]    
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'URL: ' 
+                                        MyTextInput:                            
+                                            
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'Directory:' 
+                                        MyTextInput:
+                                Widget:
+
+                            Screen:
+                                name: 'ftp'
+                                BoxLayout: 
+                                    orientation: 'vertical' 
+                                    size_hint: [1, 1]    
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'URL: ' 
+                                        MyTextInput:                            
+                                            
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'Directory:' 
+                                        MyTextInput:
+
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'Username:' 
+                                        MyTextInput:                            
+                                            
+                                    MyBoxLayout:                        
+                                        MyLabel:
+                                            text: 'Password:' 
+                                        MyPassword:
+                    Widget:
+
             MyScreen:
                 name: 'partition'
                
@@ -230,13 +358,55 @@
                     text: 'partition'
             MyScreen:
                 name: 'network'
-                
-                Label:
-                    text: 'network'
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [1, 1]
+                    MyTitle:
+                        title: 'Network'
+                    MyBoxLayout:                        
+                        MyLabel:
+                            text: 'Device:' 
+                        MyTextInput:
+                    Widget:
+                    Widget:
+                    Widget:
             MyScreen:
-                name: 'others'
-            
-                Label:
-                    text: 'others'
+                name: 'scripts'
+                BoxLayout: 
+                    orientation: 'vertical' 
+                    size_hint: [1, 1]                    
+                    MyTitle:
+                        title: 'Scripts'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding: 20, 0, 20, 0
+                        size_hint: [1, .3]   
+                        MyLabel:
+                            text:'Pre-installation Script: '                
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding: 20, 0, 20, 0
+                        size_hint: [1, 2]   
+                        TextInput:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding: 20, 0, 20, 0
+                        size_hint: [1, .3]   
+                        MyLabel:
+                            text:'Pos-installation Script: '                  
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding: 20, 0, 20, 0
+                        size_hint: [1, 2]   
+                        TextInput:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding: 20, 0, 20, 0
+                        size_hint: [1, .3]                           
+                        MyLabel:
+                            font_size: 12 
+                            text:'Warning: A mistake in the scripts could cause fail in the kicstart file.' 
+                    
+
 
                 
