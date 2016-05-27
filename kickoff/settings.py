@@ -10,6 +10,7 @@ from kivy.properties import BooleanProperty, StringProperty
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen
 from section import Section
+from script import Script
 from user import User
 
 
@@ -63,6 +64,9 @@ class Settings(Screen):
         user_pass = self.ids.us3.text
         home = self.ids.us4.text
         shell = self.ids.us5.text
+
+        pre = self.ids.pre.text
+        pos = self.ids.pos.text
         # if self.active is True and self.ids.pr1.text
         # is not self.ids.pr2.text:
         # print(self.ids.pr1.focus)
@@ -71,5 +75,7 @@ class Settings(Screen):
         # popup.open()
         user = User()
         user.save_user(root_pass, username, user_pass, home, shell)
+        script = Script()
+        script.save_script(pre, pos)
         section = Section()
         section.create_file()
