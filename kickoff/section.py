@@ -14,7 +14,8 @@ class Section:
     comment = {'user': '# Creates a new user on the system',
                'root': '# Sets the system\'s root password',
                'pre': '# Pre-installation Script',
-               'post': '# Pos-installation Script'}
+               'post': '# Pos-installation Script',
+               'source': '# Installation method'}
 
     ksfile = {}
 

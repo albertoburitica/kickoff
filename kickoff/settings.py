@@ -11,6 +11,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen
 from section import Section
 from script import Script
+from source import Source
 from user import User
 
 
@@ -37,6 +38,7 @@ class Settings(Screen):
 
     # Properties interacting with the user settings form.
     root_pass_state = root_pass_conf_state = BooleanProperty(True)
+    source = ''
 
     def active_root(self, instance, value):
         """Print."""
@@ -48,6 +50,10 @@ class Settings(Screen):
             self.root_pass_conf_state = True
             self.ids.pr1.text = ''
             self.ids.pr2.text = ''
+
+    def group_source(self, instance, text):
+        """Group button."""
+        self.source = text
 
     def check_root_pass(self, instance, value):
         """Check root password."""
@@ -67,6 +73,34 @@ class Settings(Screen):
 
         pre = self.ids.pre.text
         pos = self.ids.pos.text
+
+        if self.source:
+            s = self.source
+        else:
+            s = 'cdrom'
+
+        folder = ''
+        server = ''
+        partition = self.ids.partition.text
+        ftp_user = self.ids.ftp_user.text
+        ftp_pass = self.ids.ftp_pass.text
+
+        print('SOURCE:' + self.source)
+        if s == 'Hard drive':
+            folder = self.ids.hh_folder.text
+        elif s == 'NFS':
+            folder = self.ids.nfs_folder.text
+            server = self.ids.nfs_server.text
+        elif s == 'HTTP':
+            folder = self.ids.http_folder.text
+            server = self.ids.http_server.text
+        elif s == 'FTP':
+            folder = self.ids.ftp_folder.text
+            server = self.ids.ftp_server.text
+
+        source = Source()
+        source.save_source(s, partition, folder, server, ftp_user, ftp_pass)
+
         # if self.active is True and self.ids.pr1.text
         # is not self.ids.pr2.text:
         # print(self.ids.pr1.focus)
