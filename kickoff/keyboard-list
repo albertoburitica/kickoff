@@ -1,0 +1,70 @@
+ar-azerty*Arabic (azerty)
+ar-azerty-digits*Arabic (azerty/digits)
+ar-digits*Arabic (digits)
+ar-qwerty*Arabic (qwerty)
+ar-qwerty-digits*Arabic (qwerty/digits)
+be-latin1*Belgian (be-latin1)
+ben*Bengali (Inscript)
+ben-probhat*Bengali (Probhat)
+bg_bds-utf8*Bulgarian
+bg_pho-utf8*Bulgarian (Phonetic)
+br-abnt2*Brazilian (ABNT2)
+cf*French Canadian
+croat*Croatian
+cz-lat2*Czech (qwerty)
+cz-us-qwertz*Czech
+de*German
+de-latin1*German (latin1)
+de-latin1-nodeadkeys*German (latin1 w/ no deadkeys)
+dev*Devanagari (Inscript)
+dk*Danish
+dk-latin1*Danish (latin1)
+dvorak*Dvorak
+es*Spanish
+et*Estonian
+fi*Finnish
+fi-latin1*Finnish (latin1)
+fr*French
+fr-latin1*French (latin1)
+fr-latin9*French (latin9)
+fr-pc*French (pc)
+fr_CH*Swiss French
+fr_CH-latin1*Swiss French (latin1)
+gr*Greek
+guj*Gujarati (Inscript)
+gur*Punjabi (Inscript)
+hu*Hungarian
+hu101*Hungarian (101 key)
+ie*Irish
+is-latin1*Icelandic
+it*Italian
+it-ibm*Italian (IBM)
+it2*Italian (it2)
+jp106*Japanese
+ko*Korean
+la-latin1*Latin American
+mk-utf*Macedonian
+nl*Dutch
+no*Norwegian
+pl2*Polish
+pt-latin1*Portuguese
+ro*Romanian
+ro-cedilla*Romanian Cedilla
+ro-std*Romanian Standard
+ro-std-cedilla*Romanian Standard Cedilla
+ru*Russian
+sg*Swiss German
+sg-latin1*Swiss German (latin1)
+sk-qwerty*Slovak (qwerty)
+slovene*Slovenian
+sr-cy*Serbian
+sr-latin*Serbian (latin)
+sv-latin1*Swedish
+tj*Tajik
+tml-inscript*Tamil (Inscript)
+tml-uni*Tamil (Typewriter)
+trq*Turkish
+ua-utf*Ukrainian
+uk*United Kingdom
+us*U.S. English
+us-acentos*U.S. International
