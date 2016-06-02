@@ -6,9 +6,10 @@ This file contains the logic of settings screens.
 
 
 from kivy.lang import Builder
-from kivy.properties import BooleanProperty, StringProperty
+from kivy.properties import BooleanProperty, StringProperty, ListProperty
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen
+from locale import Locale
 from section import Section
 from script import Script
 from source import Source
@@ -39,6 +40,25 @@ class Settings(Screen):
     # Properties interacting with the user settings form.
     root_pass_state = root_pass_conf_state = BooleanProperty(True)
     source = ''
+    locale = Locale()
+    languages = ListProperty()
+    # languages = locale.get_locale()
+    keyboards = locale.get_keyboard()
+    timezones = locale.get_timezone()
+
+    def search(self, text):
+        """Search function."""
+        if text and not text.strip():
+            self.languages = list(set(self.locale.get_locale()))
+            self.languages.sort()
+        elif text == '':
+            self.languages = list(set(self.locale.get_locale()))
+            self.languages.sort()
+        else:
+            self.languages = self.locale.search_language(text)
+
+    def callback(self, instance):        
+        print("HI" + str(instance))
 
     def active_root(self, instance, value):
         """Print."""

@@ -1,4 +1,6 @@
 #:import Factory kivy.factory.Factory
+#:import ListAdapter kivy.adapters.listadapter.ListAdapter
+#:import ListItemButton kivy.uix.listview.ListItemButton
 <InfoPopup>:
     canvas.before:
         Color:
@@ -94,6 +96,9 @@
     multiline: False
     
 # settings GUI.
+<ListItemButton>:
+    text_size: self.size
+    halign: 'left'    
 <Settings>:    
     BoxLayout:        
         orientation: 'horizontal'
@@ -140,6 +145,113 @@
         # Creating every screen
         ScreenManager:
             id: screen
+
+            MyScreen:
+                name: 'localization'  
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [1, 1]
+
+                    MyTitle:
+                        title: 'Localization'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint_y: None
+                            height: '155dp'
+                            padding: 0, 0, 80, 0
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: 40, 0, 20, 0
+                                MyLabel:
+                                    text: 'Default language' 
+                                    font_size: 18   
+                                MyLabel:
+                                    text: 'Search:'
+                                MyTextInput: 
+                                    on_text: root.search(self.text)
+                            BoxLayout:       
+                                orientation: 'horizontal'               
+                                ListView:                                
+                                    size_hint_y: .8
+                                    adapter:
+                                        ListAdapter(data=root.languages,
+                                        args_converter=lambda row_index, rec: \
+                                        {'text': rec, 'on_release': root.callback, 'size_hint_y': None, 'height': 25},
+                                        allow_empty_selection=True, selection_mode='single', cls=ListItemButton)
+                                    canvas.before:
+                                        Color:
+                                            rgba: 0, 1, 0, .2
+                                        Rectangle:
+                                            pos: self.pos
+                                            size: self.size
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint_y: None
+                            height: '155dp'
+                            padding: 0, 0, 80, 0
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: 40, 0, 20, 0
+                                MyLabel:
+                                    text: 'Keyboard' 
+                                    font_size: 18   
+                                MyLabel:
+                                    text: 'Search:'
+                                MyTextInput: 
+                                    on_text: root.search(self.text)
+                            BoxLayout:       
+                                orientation: 'horizontal'               
+                                ListView:                                
+                                    size_hint_y: .8
+                                    adapter:
+                                        ListAdapter(data=root.keyboards,
+                                        args_converter=lambda row_index, rec: \
+                                        {'text': rec, 'on_release': root.callback, 'size_hint_y': None, 'height': 25},
+                                        allow_empty_selection=True, selection_mode='single', cls=ListItemButton)
+                                    canvas.before:
+                                        Color:
+                                            rgba: 0, 1, 0, .2
+                                        Rectangle:
+                                            pos: self.pos
+                                            size: self.size
+
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint_y: None
+                            height: '155dp'
+                            padding: 0, 0, 80, 0
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: 40, 0, 20, 0
+                                MyLabel:
+                                    text: 'Time zone' 
+                                    font_size: 18   
+                                MyLabel:
+                                    text: 'Search:'
+                                MyTextInput: 
+                                    on_text: root.search(self.text)
+                            BoxLayout:       
+                                orientation: 'horizontal'               
+                                ListView:                                
+                                    size_hint_y: .8
+                                    adapter:
+                                        ListAdapter(data=root.timezones,
+                                        args_converter=lambda row_index, rec: \
+                                        {'text': rec, 'on_release': root.callback, 'size_hint_y': None, 'height': 25},
+                                        allow_empty_selection=True, selection_mode='single', cls=ListItemButton)
+                                    canvas.before:
+                                        Color:
+                                            rgba: 0, 1, 0, .2
+                                        Rectangle:
+                                            pos: self.pos
+                                            size: self.size
+  
+                        Widget:   
+                            
+                  
+
             
             MyScreen:
                 name: 'user' 
@@ -210,14 +322,7 @@
                             
                     MyAdvice
                         advice: '* Required fields.'
-                    Widget:
-                    
-                  
-            MyScreen:
-                name: 'localization'  
-                Label:
-                    text: 'localization' 
-                     
+                    Widget:    
             MyScreen:
                 name: 'source'                
                 BoxLayout:
@@ -239,35 +344,48 @@
                             text: 'CD-ROM'                           
                             group: 'si'
                             background_color: [0, 1, 0, .6]  
-                            on_release: source.current = 'cdrom'
+                            state: 'down'
+                            on_press: 
+                                source.current = 'cdrom'
+                                on_press = root.group_source(self, self.text)
+                                # source.transition = Factory.get('WipeTransition')() 
+                                # source.transition.direction = 'up'                           
                         ToggleButton:
                             size_hint_y: None
                             height: '48dp'
                             text: 'Hard drive'
                             group: 'si'
                             background_color: [0, 1, 0, .6] 
-                            on_release: source.current = 'harddrive' 
+                            on_press: 
+                                source.current = 'harddrive'
+                                on_press = root.group_source(self, self.text)
                         ToggleButton:
                             size_hint_y: None
                             height: '48dp'
                             text: 'NFS'
                             group: 'si'
                             background_color: [0, 1, 0, .6]  
-                            on_release: source.current = 'nfs'
+                            on_press: 
+                                source.current = 'nfs'
+                                on_press = root.group_source(self, self.text)
                         ToggleButton:
                             size_hint_y: None
                             height: '48dp'
                             text: 'HTTP'
                             group: 'si'
                             background_color: [0, 1, 0, .6] 
-                            on_release: source.current = 'http' 
+                            on_press: 
+                                source.current = 'http'
+                                on_press = root.group_source(self, self.text)
                         ToggleButton:
                             size_hint_y: None
                             height: '48dp'
                             text: 'FTP'
                             group: 'si'
                             background_color: [0, 1, 0, .6]
-                            on_release: source.current = 'ftp'  
+                            on_press: 
+                                source.current = 'ftp'
+                                on_press = root.group_source(self, self.text)
                                                 
                         
                     BoxLayout:
@@ -279,7 +397,6 @@
                                 MyBoxLayout:
                                     MyLabel:
                                         text: 'Install from the first CD-ROM drive on the system.'
-
                             Screen:
                                 name: 'harddrive'
                                 BoxLayout: 
@@ -288,12 +405,13 @@
                                     MyBoxLayout:                        
                                         MyLabel:
                                             text: 'Partition to install from: ' 
-                                        MyTextInput:                            
-                                            
+                                        MyTextInput: 
+                                            id: partition 
                                     MyBoxLayout:                        
                                         MyLabel:
                                             text: 'Directory of the installation tree' 
-                                        MyTextInput:                            
+                                        MyTextInput: 
+                                            id: hh_folder                           
                                          
                             Screen:
                                 name: 'nfs'
@@ -303,12 +421,14 @@
                                     MyBoxLayout:                        
                                         MyLabel:
                                             text: 'Server from which to install: ' 
-                                        MyTextInput:                            
+                                        MyTextInput:
+                                            id: nfs_server                           
                                             
                                     MyBoxLayout:                        
                                         MyLabel:
                                             text: 'Directory of the installation:' 
                                         MyTextInput:
+                                            id: nfs_folder
                             Screen:
                                 name: 'http'
                                 BoxLayout: 
@@ -316,13 +436,15 @@
                                     size_hint: [1, 1]    
                                     MyBoxLayout:                        
                                         MyLabel:
-                                            text: 'URL: ' 
-                                        MyTextInput:                            
-                                            
+                                            text: 'URL:' 
+                                        MyTextInput:  
+                                            id: http_server                          
+                                            text: 'http://'                                            
                                     MyBoxLayout:                        
                                         MyLabel:
-                                            text: 'Directory:' 
+                                            text: 'Directory name:' 
                                         MyTextInput:
+                                            id: http_folder
                                 Widget:
 
                             Screen:
@@ -333,22 +455,26 @@
                                     MyBoxLayout:                        
                                         MyLabel:
                                             text: 'URL: ' 
-                                        MyTextInput:                            
+                                        MyTextInput:  
+                                            id: ftp_server                          
                                             
                                     MyBoxLayout:                        
                                         MyLabel:
-                                            text: 'Directory:' 
+                                            text: 'Directory name:' 
                                         MyTextInput:
+                                            id: ftp_folder
 
                                     MyBoxLayout:                        
                                         MyLabel:
                                             text: 'Username:' 
-                                        MyTextInput:                            
+                                        MyTextInput: 
+                                            id: ftp_user                            
                                             
                                     MyBoxLayout:                        
                                         MyLabel:
                                             text: 'Password:' 
                                         MyPassword:
+                                            id: ftp_pass
                     Widget:
 
             MyScreen:
